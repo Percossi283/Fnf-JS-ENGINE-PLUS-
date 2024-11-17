@@ -82,3 +82,20 @@ jobs:
         file: build.zip
         asset_name: FNF-JS-Engine-macOS.zip
         overwrite: false
+
+  release-android:
+    name: Release androidBuild
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Android artifact
+        uses: actions/download-artifact@main
+        with:
+          name: androidBuild
+      - name: Upload androidBuild to release
+        uses: svenstaro/upload-release-action@2.5.0
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ needs.get-latest-tag.outputs.latest_tag }}
+          file: JSEngine-release.apk
+          asset_name: FNF-JS-Engine-android.apk
+          overwrite: false          
